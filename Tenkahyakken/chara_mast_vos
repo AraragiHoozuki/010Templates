@@ -1,0 +1,87 @@
+//--------------------------------------
+//--- 010 Editor v6.0.2 Binary Template
+//
+// File:
+// Author: Lohengriny
+// Revision:
+// Purpose: for Tenkahyakken chara master file
+//--------------------------------------
+typedef struct
+{
+    int Length;
+    char Content[Length];
+    local int comp = Length % 4;
+    if ( comp != 0 )
+        comp = 4 - comp;
+    FSkip(comp);
+} tstring<read=ReadTstringName>;
+
+string ReadTstringName(tstring &s)
+{
+	return  s.Content;
+}
+
+typedef struct
+{
+    LittleEndian();
+
+    tstring GroupId;
+    tstring Id;
+    tstring Name;
+    tstring KanaName;
+    tstring RubyName;
+    tstring Desc;
+    tstring Type;
+    uint Element;
+    uint Rarity;
+    uint DefaultLv;
+    uint Lv_Per_Awake;
+    tstring Buff;
+    tstring Birthday;
+    tstring CV;
+    tstring Illust;
+    tstring SowrdHamon;
+    tstring DefaultAccessory;
+
+    int HpDefault;
+    int AtkDefault;
+    int DefMax;
+    int TechDefault;
+    int SpdDefault;
+    int LukDefault;
+    int DamageWeightDefault;
+    int HpMax;
+    int AtkMax;
+    int DefMax;
+    int TechMax;
+    int SpdMax;
+    int LukMax;
+    tstring HpGrowthId;
+    tstring AtkGrowthId;
+    tstring DefGrowthId;
+    tstring TechGrowthId;
+    tstring SpdGrowthId;
+    tstring LukGrowthId;
+    tstring MiniCharaFile;
+    tstring MiniCharaSkill;
+    tstring DefaultBg;
+    tstring CostumeId;
+    FSkip(4);
+    int VectorX;
+    int VectorY;
+    int VectorZ;
+    tstring TrustTableType;
+} Character <read=ReadCharaName>;
+
+string ReadCharaName(Character &a)
+{
+	return  a.Name.Content;
+}
+
+FSeek(0x34);
+
+local int i;
+while( !FEof() )
+{
+    Character chara;
+}
