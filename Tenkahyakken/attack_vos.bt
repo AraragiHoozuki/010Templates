@@ -1,0 +1,73 @@
+//--------------------------------------
+//--- 010 Editor v6.0.2 Binary Template
+//
+// File:
+// Author: Lohengriny
+// Revision:
+// Purpose: Tenkahyakken attack_vos
+//--------------------------------------
+typedef struct
+{
+    int Length;
+    char Content[Length];
+    local int comp = Length % 4;
+    if ( comp != 0 )
+        comp = 4 - comp;
+    FSkip(comp);
+} tstring<read=ReadTstringName>;
+
+string ReadTstringName(tstring &s)
+{
+	return  s.Content;
+}
+
+typedef struct
+{
+    LittleEndian();
+    tstring For;
+    int Id;
+    float EndTime;
+    float Power;
+    float ConstantPower;
+    float Critical;
+    tstring Buff;
+    float BuffParam;
+    float BuffTime;
+    tstring Characteristic;
+    int region;
+    int Shape;
+    float ShapeX;
+    float ShapeY;
+    float ShapeZ;
+    float SizeX;
+    float SizeY;
+    float SizeZ;
+    int MaxHit;
+    int DamageMotion;
+    int DamageReturn;
+    float DamageTime;
+    float DamageMoveX;
+    float DamageMoveY;
+    float DamageMoveZ;
+    float HitStopTime;
+    float CharVibrant;
+    tstring HitEffect;
+    float EffectAngle;
+    tstring HitSe;
+    float Pitch;
+    float CameraVibrant;
+    float CameraVibrantTime;
+    int BuffParamType;
+    tstring Elements;
+} Attack<read = ReadAttackName>;
+
+string ReadAttackName(Attack &a)
+{
+	return  a.For.Content;
+}
+
+FSeek(0x30);
+while( !FEof() )
+{
+    Attack attack;
+}

@@ -1,0 +1,55 @@
+//--------------------------------------
+//--- 010 Editor v6.0.2 Binary Template
+//
+// File:
+// Author: Lohengriny
+// Revision:
+// Purpose: chara_special_skill_level_mast_vos
+//--------------------------------------
+typedef struct
+{
+    int Length;
+    char Content[Length];
+    local int comp = Length % 4;
+    if ( comp != 0 )
+        comp = 4 - comp;
+    FSkip(comp);
+} tstring<read=ReadTstringName>;
+
+string ReadTstringName(tstring &s)
+{
+	return  s.Content;
+}
+
+typedef struct
+{
+    LittleEndian();
+    tstring CharaId;
+    tstring Name;
+    tstring Desc;
+    tstring Motion;
+    int PowerDefault;
+    float RevisionDefault;
+    float BuffTimeDefault;
+    int PowerMax;
+    float RevisionMax;
+    float BuffTimeMax;
+    tstring PowerGrow;
+    tstring RevisionGrow;
+    tstring BuffTimeGrow;
+    tstring Elements;
+    tstring Characteristic;
+    UINT MaxCharge;
+    tstring Icon;
+} Skill<read = ReadSkillName>;
+
+string ReadSkillName (Skill &s)
+{
+    return s.Name.Content + " (" + s.CharaId.Content + ")";
+}
+
+FSeek(0x48);
+while( !FEof() )
+{
+    Skill skill;
+}

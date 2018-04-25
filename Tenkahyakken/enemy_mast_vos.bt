@@ -1,0 +1,76 @@
+//--------------------------------------
+//--- 010 Editor v6.0.2 Binary Template
+//
+// File:
+// Author:
+// Revision:
+// Purpose: enemy_mast_vos
+//--------------------------------------
+
+typedef struct
+{
+    int Length;
+    char Content[Length];
+    local int comp = Length % 4;
+    if ( comp != 0 )
+        comp = 4 - comp;
+    FSkip(comp);
+} tstring<read=ReadTstringName>;
+
+string ReadTstringName(tstring &s)
+{
+	return  s.Content;
+}
+
+typedef struct
+{
+    tstring Id;
+    tstring Name;
+    tstring RubyName;
+    tstring Mition;
+    tstring Anime;
+    tstring Skin;
+    tstring Buff;
+    tstring BuffTimeRate;
+    tstring Races;
+    int HpIni;
+    int AtkIni;
+    int DefIni;
+    int ArmorIni;
+    int SuperArmorIni;
+    int TechIni;
+    int SpdIni;
+    int LukIni;
+    int DamageWeighIni;
+    int HpMax;
+    int AtkMax;
+    int DefMax;
+    int ArmorMax;
+    int SuperArmorMax;
+    int TechMax;
+    int SpdMax;
+    int LukMax;
+    tstring HpGrow;
+    tstring AtkGrow;
+    tstring DefGrow;
+    tstring ArmorGrow;
+    tstring SuperArmorGrow;
+    tstring TechGrow;
+    tstring SpdGrow;
+    tstring LukGrow;
+    int HpGaugeNum;
+    tstring HpGaugeRate;
+    tstring FormPrefix;
+} Enemy<read = ReadEnemy>;
+
+string ReadEnemy(Enemy &e)
+{
+    return e.Name.Content + " (" + e.Id.Content + ")";
+}
+
+FSeek(0x34);
+while (!FEof())
+{
+    Enemy enemy;
+}
+

@@ -1,0 +1,122 @@
+//--------------------------------------
+//--- 010 Editor v6.0.2 Binary Template
+//
+// File:
+// Author:
+// Revision:
+// Purpose: accessory_mast_vos
+//--------------------------------------
+typedef struct
+{
+    int Length;
+    char Content[Length];
+    local int comp = Length % 4;
+    if ( comp != 0 )
+        comp = 4 - comp;
+    FSkip(comp);
+} tstring<read=ReadTstringName>;
+
+string ReadTstringName(tstring &s)
+{
+	return  s.Content;
+}
+
+typedef struct
+{
+    tstring Id;
+    tstring Name;
+    tstring Desc;
+    tstring Type;
+    tstring SubType;
+    int SkillType;
+    UINT Rarity;
+    UINT Element;
+    tstring AtkElements;
+    tstring Icon;
+    tstring Motion;
+    int PowerDefault;
+    int CritDefault;
+    float BuffTimeDefault;
+    float CooldownDefault;
+    float CountDefault;
+    float RevisionDefault;
+    UINT Through;
+    tstring Characteristic;
+    int PowerMax;
+    int CritMax;
+    float BuffTiemMax;
+    float RevisionMax;
+    tstring PowerGrow;
+    tstring CritGrow;
+    tstring ButtTGrow;
+    tstring RevisionGrow;
+    float CooldownAdd;
+    int CountAdd;
+    int HpDefault;
+    int AtkDefault;
+    int DefDefault;
+    int TechDefault;
+    int SpdDefault;
+    int LukDefault;
+    int HpMax;
+    int AtkMax;
+    int DefMax;
+    int TechMax;
+    int SpdMax;
+    int LukMax;
+    tstring HpGrow;
+    tstring AtkGrow;
+    tstring DefGrow;
+    tstring TechGrow;
+    tstring SpdGrow;
+    tstring¡¡LukGrow;
+    UINT No;
+    UINT MaxLimitOver;
+    tstring CharaId;
+    tstring BuffId;
+    float BuffParam;
+    float BuffParamMax;
+    tstring ParamGrow;
+    float ParamLimitAdd;
+    tstring BuffId2;
+    float BuffParam2;
+    float BuffParamMax2;
+    tstring ParamGrow2;
+    float ParamLimitAdd2;
+    tstring BuffId3;
+    float BuffParam3;
+    float BuffParamMax3;
+    tstring ParamGrow3;
+    tstring ProtectionDesc;
+    float ParamLimitAdd3;
+    UINT LvDefault;
+    UINT Lv_Per_MaxLimit;
+    int Price;
+    int CharaTypeGroup;
+    tstring CharaTypeBuffId;
+    float CTBParam;
+    float CTBParamMax;
+    tstring CTBParamGrow;
+    float CTBParamLimitAdd;
+    tstring CharaTypeBuffId2;
+    float CTBParam2;
+    float CTBParamMax2;
+    tstring CTBParamGrow2;
+    float CTBParamLimitAdd2;
+    tstring CharaTypeBuffId3;
+    float CTBParam3;
+    float CTBParamMax3;
+    tstring CTBParamGrow3;
+    float CTBParamLimitAdd3;
+} Accessory<read = ReadAccName>;
+
+string ReadAccName (Accessory &a)
+{
+    return a.Name.Content;
+}
+
+FSeek(0x38);
+while( !FEof() )
+{
+    Accessory accessory;
+}

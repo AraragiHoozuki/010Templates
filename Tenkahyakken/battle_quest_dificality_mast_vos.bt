@@ -1,0 +1,53 @@
+//--------------------------------------
+//--- 010 Editor v6.0.2 Binary Template
+//
+// File:
+// Author:
+// Revision:
+// Purpose: battle_quest_dificality_mast_vos
+//--------------------------------------
+typedef struct
+{
+    int Length;
+    char Content[Length];
+    local int comp = Length % 4;
+    if ( comp != 0 )
+        comp = 4 - comp;
+    FSkip(comp);
+} tstring<read=ReadTstringName>;
+
+string ReadTstringName(tstring &s)
+{
+	return  s.Content;
+}
+
+typedef struct
+{
+    tstring Chapter;
+    tstring Quest;
+    int Difficulty;
+    tstring FCItem;
+    UINT Force;
+    tstring ConditionId;
+    tstring ConditionDesc;
+    tstring Mission1;
+    tstring Mission2;
+    tstring Mission3;
+    tstring Enemies;
+    UINT Cost;
+    UINT Unknown;
+    UINT Level;
+    UINT LimitedAddLvClearCount;
+    UINT AddRoundForce;
+} QuestSet<read = ReadQuestSet>;
+
+string ReadQuestSet(QuestSet &q)
+{
+    return q.Chapter.Content + ": " + q.Quest.Content;
+}
+
+FSeek(0x44);
+while (!FEof())
+{
+    QuestSet quest;
+}
