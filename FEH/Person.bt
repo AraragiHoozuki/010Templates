@@ -1,0 +1,186 @@
+//--------------------------------------
+//--- 010 Editor v6.0.2 Binary Template
+//
+// File: Person.bt
+// Author: Lohengriny 
+// Revision: 
+// Purpose: For FEH Common/SRPG/Person
+//--------------------------------------
+const byte ID_XORKEY[34] = {
+  0x81, 0x00, 0x80, 0xA4, 0x5A, 0x16, 0x6F, 0x78,
+  0x57, 0x81, 0x2D, 0xF7, 0xFC, 0x66, 0x0F, 0x27,
+  0x75, 0x35, 0xB4, 0x34, 0x10, 0xEE, 0xA2, 0xDB,
+  0xCC, 0xE3, 0x35, 0x99, 0x43, 0x48, 0xD2, 0xBB,
+  0x93, 0xC1
+};
+const uint offset = 0x20;
+
+LittleEndian();
+
+
+typedef struct
+{
+    uint64 addr;
+    local uint64 pos = FTell();
+    if (addr !=0)
+        FSeek(addr+offset);
+        local int l = ReadStringLength(FTell());
+        char content[l];
+        FSeek(pos);
+} cstring<read=ReadCryptedString>;
+
+string ReadCryptedString(cstring &c)
+{  
+    if (c.addr == 0) return "Null";
+    local int l1 = Strlen(c.content);
+    local int l2 = 34;
+    local char xored[l1];
+    local int i = 0;
+	for (i=0; i<l1; i++)
+    {
+        xored[i] = c.content[i]^ ID_XORKEY[i%34];
+    }
+    return xored;
+}
+
+typedef struct
+{
+    uint16 hp<read=HpRead>;
+    uint16 atk<read=AtkRead>;
+    uint16 spd<read=SpdRead>;
+    uint16 def<read=DefRead>;
+    uint16 res<read=ResRead>;
+    FSkip(6);
+} Stats;
+
+typedef struct
+{
+    local int i;
+    local uint64 addr;
+    for (i = 0; i < 70; i++)
+    {
+        addr = ReadUInt64();
+        if (addr > 0) 
+            cstring skill;
+        else {
+            FSkip(8);
+        }
+    }
+} Skills;
+
+typedef struct
+{
+    cstring id;
+    cstring name_romance;
+    cstring face;
+    cstring face2;
+    uint64 LengdaryInfo; // Not completed yet
+    int64 timestamp; // Not important, so not decoded;
+    uint32 internal_id<read=InternalIdRead>;
+    uint32 sort_value<read=SortValueRead>;
+    byte weapon_type<read=WeaponTypeRead>;
+    byte tome_class<read=TomeClassRead>;//Purpose unkown
+    byte move<read=MoveRead>;
+    byte origin<hidden=true>; //0x43
+    byte special<hidden=true>; //0xA0
+    byte isPermante<hidden=true>; //0xC7
+    byte base_vector_id<hidden=true>; //0x3D
+    byte isDancer<read=isDancerRead>;
+    byte unkown<hidden=true>;
+    FSkip(7);
+    Stats base_stats;
+    Stats gorw;
+    Stats max_stats;
+    Skills skills;
+} Person<read = PersonRead>;
+
+string PersonRead(Person &p)
+{
+    return ReadCryptedString(p.id);
+}
+
+string InternalIdRead(uint32 i)
+{
+    string s;
+    SPrintf( s, "%d", (int)i^0x5F6E4E18);
+    return s;
+}
+
+string SortValueRead(uint32 i)
+{
+    string s;
+    SPrintf( s, "%d", (int)i^0x2A80349B);
+    return s;
+}
+
+string WeaponTypeRead(byte b)
+{
+    enum {Sword, Lance, Axr, RedBow, BlueBow, GreenBow, ColorlessBow, RedDagger, BlueDagger,
+    GreedDagger, Dagger, RedTome, BlueTome, GreenTome, Staff, RedBreath, BlueBreath, GreenBreath,
+    ColorlessBreath} wps;
+    wps = b^0x06;
+    return EnumToString(wps);
+}
+
+string TomeClassRead(byte b)
+{
+    enum {None, Fire, Thunder, Wind, Light, Dark} element;
+    element = b^0x35;
+    return EnumToString(element);
+}
+
+string MoveRead(byte b)
+{
+    enum {Infantry, Armored, Cavalry, Flying} m;
+    m = b^0x2A;
+    return EnumToString(m);
+}
+
+string isDancerRead(byte b)
+{
+    byte xored = b^0xFF;
+    if (xored > 0) return "True";
+    else { return "False"; }
+}
+
+string HpRead(uint16 i)
+{
+    string s;
+    SPrintf( s, "%d", (uint)i^0xD632);
+    return s;
+}
+
+string AtkRead(uint16 i)
+{
+    string s;
+    SPrintf( s, "%d", (uint)i^0x14A0);
+    return s;
+}
+
+string SpdRead(uint16 i)
+{
+    string s;
+    SPrintf( s, "%d", (uint)i^0xA55E);
+    return s;
+}
+
+string DefRead(uint16 i)
+{
+    string s;
+    SPrintf( s, "%d", (uint)i^0x8566);
+    return s;
+}
+
+string ResRead(uint16 i)
+{
+    string s;
+    SPrintf( s, "%d", (uint)i^0xAEE5);
+    return s;
+}
+
+FSeek(0x30);
+Person first;
+while (FTell()<first.id.addr)
+{
+    Person person;
+}
