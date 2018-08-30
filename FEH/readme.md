@@ -15,7 +15,7 @@
   - Delete the first 4 bytes
   - Run a corresponded template
   - Mod!
-  - Insert the delete 4 bytes. (If you forgot, just copy it from the .bin.lz file, they are the same)
+  - Insert the deleted 4 bytes back. (If you forgot, just copy it from the .bin.lz file, they are the same)
 - Use FEAT to compress the modded .bin file back into .bin.lz
 - Overwrite the original file.
 
