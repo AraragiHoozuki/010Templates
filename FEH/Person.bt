@@ -89,7 +89,7 @@ typedef struct
     byte unkown<hidden=true>;
     FSkip(7);
     Stats base_stats;
-    Stats gorw;
+    Stats grow;
     Stats max_stats;
     Skills skills;
 } Person<read = PersonRead>;
