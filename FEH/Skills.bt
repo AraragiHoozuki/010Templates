@@ -75,9 +75,7 @@ typedef struct {
     cstring refine_id;
     cstring requirements[2]<optimize=false>;
     cstring next_skill;
-    Sprite sprites[4]<optimize=false>;
-    if ( ReadUInt64() == 0 )
-        Sprite sprite<hidden=true>;
+    Sprite sprites[5]<optimize=false>;
     Stats stats;
     Stats dagger_debuff;
     Stats skill_params;
