@@ -46,10 +46,26 @@ string ReadCryptedString(cstring &c)
     local int i = 0;
 	for (i=0; i<l1; i++)
     {
-        xored[i] = c.content[i]^ ID_XORKEY[i%34];
+        if (c.content[i]!=ID_XORKEY[i%34])
+            xored[i] = c.content[i]^ ID_XORKEY[i%34];
+        else
+        {
+            xored[i] = c.content[i];
+        }
     }
     return xored;
 }
+
+typedef struct
+{
+    uint64 addr;
+    local uint64 pos = FTell();
+    if (addr !=0)
+        FSeek(addr+offset);
+        local int l = ReadStringLength(FTell());
+        char content[l];
+        FSeek(pos);
+} Sprite;
 
 typedef struct {
     cstring id;
@@ -59,7 +75,9 @@ typedef struct {
     cstring refine_id;
     cstring requirements[2]<optimize=false>;
     cstring next_skill;
-    FSkip(32);
+    Sprite sprites[4]<optimize=false>;
+    if ( ReadUInt64() == 0 )
+        Sprite sprite<hidden=true>;
     Stats stats;
     Stats dagger_debuff;
     Stats skill_params;
