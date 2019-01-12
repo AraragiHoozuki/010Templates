@@ -117,7 +117,7 @@ string WeaponTypeRead(byte b)
 {
     enum {Sword, Lance, Axr, RedBow, BlueBow, GreenBow, ColorlessBow, RedDagger, BlueDagger,
     GreedDagger, Dagger, RedTome, BlueTome, GreenTome, Staff, RedBreath, BlueBreath, GreenBreath,
-    ColorlessBreath} wps;
+    ColorlessBreath, RedBeast, BlueBeast, GreenBeast, ColorlessBeast} wps;
     wps = b^0x06;
     return EnumToString(wps);
 }
