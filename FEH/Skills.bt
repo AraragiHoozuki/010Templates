@@ -123,13 +123,13 @@ typedef struct {
     byte unknown6<hidden=true>;
     byte unknown7<hidden=true>;
     FSkip(3);
-    cstring id2;
+    /*cstring id2;
     cstring next_seal;
     cstring prev_seal;
     uint16 ss_coin;
     uint16 ss_badge_type;
     uint16 ss_badge;
-    uint16 ss_great_badge;
+    uint16 ss_great_badge;*/
 } SkillData<read=ReadSkillName>;
 
 string ReadSkillName(SkillData &s)
