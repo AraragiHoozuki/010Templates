@@ -90,7 +90,7 @@ typedef struct
     FSkip(7);
     Stats base_stats;
     Stats grow;
-    Stats max_stats;
+    //Stats max_stats;
     Skills skills;
 } Person<read = PersonRead>;
 
