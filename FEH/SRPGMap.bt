@@ -1,0 +1,86 @@
+//--------------------------------------
+//--- 010 Editor v6.0.2 Binary Template
+//
+// File:
+// Author:
+// Revision:
+// Purpose: For FEH Common/SRPGMAP/
+//--------------------------------------
+const byte XORKEY[34] = {
+  0x81, 0x00, 0x80, 0xA4, 0x5A, 0x16, 0x6F, 0x78,
+  0x57, 0x81, 0x2D, 0xF7, 0xFC, 0x66, 0x0F, 0x27,
+  0x75, 0x35, 0xB4, 0x34, 0x10, 0xEE, 0xA2, 0xDB,
+  0xCC, 0xE3, 0x35, 0x99, 0x43, 0x48, 0xD2, 0xBB,
+  0x93, 0xC1
+};
+#include "FEH_Common.bt.h"
+LittleEndian();
+
+typedef struct
+{
+    CryptStr id;
+    XORED32 width(0x6B7CD75F);
+    XORED32 height(0x2BAA12D5);
+    XORED8 base_terrain(0x41);
+    FSkip(0x7);
+    XORED8 tile(0xA1)[(width.value^width.xorkey)*(height.value^height.xorkey)]<optimize=false>;
+} Field;
+
+typedef struct
+{
+
+    CryptStr id;
+    CryptStr skills[7]<optimize=false>;
+    CryptStr accessory;
+    POSITION pos;
+    XORED8 rarity(0x61);
+    XORED8 lv(0x2A);
+    XORED8 cd(0x1E);
+    byte unknown;
+    STATS stats;
+    XORED8 start_turn(0xCF);
+    XORED8 movement_group(0xF4);
+    XORED8 movement_delay(0x95);
+    XORED8 break_terrain(0x71);
+    XORED8 returner(0xB8);
+    XORED8 real_lv(0x85);
+    XORED8 is_enemy(0xD0);
+    FSkip(1);
+    CryptStr spawn_check;
+    XORED8 spawn_count(0x0A);
+    XORED8 spawn_turns(0x0A);
+    XORED8 spawn_target_remain(0x2D);
+    XORED8 spawn_target_kills(0x5B);
+    FSkip(4);
+} UNIT<read=ReadUnit>;
+
+string ReadUnit(UNIT &u)
+{
+    return ReadCryptedString(u.id);
+}
+
+
+FSkip(0x20);
+uint32 unknown<hidden=true>;
+XORED32 highest_score(0xA9E250B1);
+int64 addr_field<hidden=true>;
+int64 addr_player_pos<hidden=true>;
+int64 addr_units<hidden=true>;
+XORED32 player_count(0x9D63C79A);
+XORED32 unit_count(0xAC6710EE);
+XORED8 turns_to_win(0xFD);
+XORED8 enemy_phase_decide_turn(0xC7);
+XORED8 turns_to_defend(0xEC);
+
+FSeek(addr_field + offset);
+Field field;
+
+FSeek(addr_player_pos + offset);
+POSITION player_positions[player_count.value ^ player_count.xorkey];
+
+FSeek(addr_units + offset);
+UNIT first;
+while (FTell()<first.id.addr)
+{
+    UNIT unit;
+}
