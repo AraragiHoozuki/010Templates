@@ -1,9 +1,14 @@
 # FEH Static Mod
+## What's new
+- Added map template
+- Most xored values now can be edited directly
+- Added FEH_Common.bt.h to store shared functions and structs (please put the .bt files and .h in the same folder)
 
 ## File paths
 - Skills: Common/SRPG/Skills/
 - Heros:Common/SRPG/Persona/
 - Decriptions: LANG/Message/Data/
+- Maps: Common/SRPGMAP
 
 ## Tools
 - A modified FEAT (can be found in my repository)
