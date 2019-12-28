@@ -16,7 +16,7 @@ const byte XORKEY[34] = {
 #include "FEH_Common.bt.h"
 LittleEndian();
 
-typedef struct
+typedef struct 
 {
     CryptStr id;
     XORED32 width(0x6B7CD75F);
@@ -60,27 +60,31 @@ string ReadUnit(UNIT &u)
 }
 
 
-FSkip(0x20);
-uint32 unknown<hidden=true>;
+
+uint32 archive_size;
+uint32 ptr_list_offset;
+uint32 ptr_list_length;
+uint32 taglist_length;
+uint32 unknown1;
+uint32 unknown2;
+uint64 magic;
+uint32 unknown3;
 XORED32 highest_score(0xA9E250B1);
-int64 addr_field<hidden=true>;
-int64 addr_player_pos<hidden=true>;
-int64 addr_units<hidden=true>;
+int64 addr_field;
+int64 addr_player_pos;
+int64 addr_units;
 XORED32 player_count(0x9D63C79A);
 XORED32 unit_count(0xAC6710EE);
 XORED8 turns_to_win(0xFD);
 XORED8 enemy_phase_decide_turn(0xC7);
 XORED8 turns_to_defend(0xEC);
 
-FSeek(addr_field + offset);
+FSkip(0x5);
 Field field;
-
-FSeek(addr_player_pos + offset);
 POSITION player_positions[player_count.value ^ player_count.xorkey];
 
 FSeek(addr_units + offset);
-UNIT first;
-while (FTell()<first.id.addr)
-{
-    UNIT unit;
-}
+UNIT unit[unit_count.value ^ unit_count.xorkey]<optimize=false>;
+
+FSeek(ptr_list_offset + offset);
+uint64 ptr_offset[ptr_list_length];

@@ -84,7 +84,7 @@ typedef struct {
     XORED8 max_lv(0x24);
     byte unknown6<hidden=true>;
     byte unknown7<hidden=true>;
-    FSkip(3);
+    FSkip(11);
 } SkillData<read=ReadSkillName>;
 
 string ReadSkillName(SkillData &s)
@@ -99,9 +99,17 @@ string TomeClassRead(byte b)
     return EnumToString(element);
 }
 
-FSeek(0x30);
-SkillData first;
-while (FTell() < first.id.addr)
-{
-    SkillData skill;
-}
+
+uint archive_size;
+uint ptr_list_offset;
+uint ptr_list_length;
+uint ptr_taglist_length;
+uint unknown1;
+uint unknown2;
+uint64 magic;
+uint64 data_list_ptr;
+XORED64 data_size(0x7FECC7074ADEE9AD);
+SkillData skill[data_size.value ^ data_size.xorkey]<optimize=false>;
+FSeek(ptr_list_offset + 0x20);
+uint64 ptr_offset[ptr_list_length];
+Tag taglist[ptr_taglist_length];

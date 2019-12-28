@@ -42,6 +42,12 @@ string ReadCryptedString(CryptStr &c)
     return xored;
 }
 
+typedef struct
+{
+    uint32 ptr;
+    uint64 tag_offset;
+} Tag;
+
 // xored values (8bits to 64bits) ===================================================
 
 typedef struct(int key)

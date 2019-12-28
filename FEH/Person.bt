@@ -92,9 +92,16 @@ string MoveRead(byte b)
     return EnumToString(m);
 }
 
-FSeek(0x30);
-Person first;
-while (FTell()<first.id.addr)
-{
-    Person person;
-}
+uint archive_size;
+uint ptr_list_offset;
+uint ptr_list_length;
+uint ptr_taglist_length;
+uint unknown1;
+uint unknown2;
+uint64 magic;
+uint64 data_list_ptr;
+XORED64 data_size(0xDE51AB793C3AB9E1);
+Person person[data_size.value ^ data_size.xorkey]<optimize=false>;
+FSeek(ptr_list_offset + 0x20);
+uint64 ptr_offset[ptr_list_length];
+Tag taglist[ptr_taglist_length];
