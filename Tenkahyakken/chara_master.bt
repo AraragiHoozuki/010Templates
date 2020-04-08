@@ -6,6 +6,8 @@
 // Revision:
 // Purpose: for Tenkahyakken chara master file
 //--------------------------------------
+
+
 typedef struct
 {
     int Length;
@@ -67,10 +69,10 @@ typedef struct
     tstring DefaultBg;
     tstring CostumeId;
     FSkip(4);
-    int VectorX;
-    int VectorY;
-    int VectorZ;
+    int expression[3];
     tstring TrustTableType;
+    int GetType;
+    tstring ExchangeDesc;
 } Character <read=ReadCharaName>;
 
 string ReadCharaName(Character &a)
@@ -78,7 +80,13 @@ string ReadCharaName(Character &a)
 	return  a.Name.Content;
 }
 
-FSeek(0x34);
+int FiledId;
+int64 PathID;
+int Enabled;
+int FiledId2;
+int64 PathId2;
+tstring Name;
+int Size;
 while( !FEof() )
 {
     Character chara;
