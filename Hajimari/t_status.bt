@@ -1,0 +1,383 @@
+//--------------------------------------
+//--------------------------------------
+//--- 010 Editor v3.1.2 二进制模板
+//
+
+// File:闪之轨迹 t_status.tbl Template 
+// Author:sealist
+// Revision:2013-10-01
+// Purpose:我方单位的敌人数据
+//--------------------------------------
+
+
+
+  
+
+    local int   TOTAL = 100;
+    local int   i;
+    local int   j;
+typedef struct  // 七耀属性
+{
+	ubyte   ArtsAtt_Earth;	// 地
+	ubyte	ArtsAtt_Warter;	// 水
+	ubyte	ArtsAtt_Fire;	// 火
+	ubyte	ArtsAtt_Wind;	// 风
+	ubyte	ArtsAtt_Time;	// 时
+	ubyte	ArtsAtt_Hollow;	// 空
+	ubyte	ArtsAtt_Illusory;	// 幻	
+} ArtsAttRESISTANCE;
+
+typedef struct  // 七耀属性
+{
+	ubyte	Sepith_Earth;    // Vanish
+	ubyte	Sepith_Warter;    // Vanish
+	ubyte	Sepith_Fire;    // Vanish
+	ubyte	Sepith_Wind;    // Vanish
+	ubyte	Sepith_Time;    // Vanish
+	ubyte	Sepith_Hollow;    // Vanish
+	ubyte	Sepith_Illusory;    // Vanish
+	ubyte	Sepith_NewStone;    // Vanish
+	float   Sepith_Earth_fun;	// 地
+	float	Sepith_Warter_fun;	// 水
+	float	Sepith_Fire_fun;	// 火
+	float	Sepith_Wind_fun;	// 风
+	float	Sepith_Time_fun;	// 时
+	float	Sepith_Hollow_fun;	// 空
+	float	Sepith_Illusory_fun;	// 幻
+	float	Sepith_NewStone_fun;	//新加的
+} SEPITH;
+
+typedef struct  // 攻击属性
+{
+	USHORT   ATKRES_Slash;	// 斩  
+	USHORT	ATKRES_Assault;	// 突
+	USHORT	ATKRES_Shoot;	// 射
+	USHORT	ATKRES_Strong;	// 刚
+
+} ATKRES;
+
+typedef struct  // 抗性
+{
+	ubyte   CONDITION_POISON;	// 毒
+	ubyte	CONDITION_DISABLE_CRAFT;	// 封技 SEAL
+	ubyte	CONDITION_DISABLE_ARTS;	// 封魔 MUTE
+	ubyte	CONDITION_BLIND;	// 黑暗 DARKNESS
+	ubyte	CONDITION_SLEEP;	// 睡眠 SLEEPING
+	ubyte	CONDITION_BURN;	// 炎伤
+	ubyte	CONDITION_FREEZE;	// 冻结 FROZEN
+	ubyte	CONDITION_PETRIFY;	// 石化 LANDIFICATION STONE
+	ubyte	CONDITION_FAINT;	// 气绝 STUN
+	ubyte	CONDITION_CONFUSE;	// 混乱 CHAOS
+	ubyte	CONDITION_CHARM;	// 混乱 CHAOS
+	ubyte	CONDITION_SECOND_KILL;	// 即死
+	ubyte	CONDITION_NIGHTMARE;	// 恶梦
+	ubyte	CONDITION_ATDELAY;	// 延迟
+	ubyte	CONDITION_VANISH;    // Vanish
+	ubyte	CONDITION_ABILITYDOWN;//能力下降
+
+
+	
+} STATUSRESISTANCE;
+typedef struct
+{
+    string  辳statustitle;  
+    ushort	bytelen;              
+ 
+        
+        ushort  ID;
+   
+    string  C_MONbattle_SKILLandAIFile;
+    string  C_MONFile2;
+
+    string  MONFile;
+
+	float	size;
+	float				un2;
+	float				un3;
+	float				un4;
+	float				un5;
+	float				un6;
+	float				un7;
+    ushort	un8; 
+    ushort	un9; 
+ubyte				un10;
+ubyte				Level;
+
+
+    ULONG				HPBASE;
+	float				HPfuntionpra;
+	USHORT				EPMax;
+	USHORT				EP;
+   
+    
+
+    USHORT				CPMax;
+	USHORT				CP;
+
+
+
+
+
+
+
+
+
+           ULONG				STR;
+	float				STRfuntionpra;
+	 ULONG				DEF;
+	float				DEFfuntionpra;
+	 ULONG				ATS;
+	float				ATSfuntionpra;
+	 ULONG				ADF;
+	float				ADFfuntionpra;
+	USHORT				DEX;
+	float				DEXfuntionpra;
+	USHORT				AGL;
+	float				AGLfuntionpra;
+	USHORT				AbsoluteEvadeRate;
+	USHORT				SPD;
+	float				SPDfuntionpra;
+	USHORT				MOV;
+	float				MOVfuntionpra;	
+	USHORT				RNG;
+	float				RNGfuntionpra;	
+
+
+
+	USHORT				BENVALUE;
+	float				BENVALUEfuntionpra;	
+
+	ArtsAttRESISTANCE		ArtsAttResistance;       // 七曜属性有效率
+    STATUSRESISTANCE		StatusResistance;                 // 异常状态抗性,游戏中排列从上往下再竖排列
+    ATKRES              ATKResistance;           //攻击属性有效率斩 突 射 刚
+
+   //SEPITH				Sepith;                  // 掉落耀晶片,最后一个为新增的
+
+	//USHORT				DropIndex1 <format=hex>;                 // 掉落物 物品代码
+	//UBYTE				DropProbability1;           // 掉落概率
+	//USHORT				DropIndex2 <format=hex>;
+	//UBYTE				DropProbability2;
+   //float  state_down;
+    //float   state_up;
+    string              MGKHS;
+
+
+
+    string              MonsterName;
+    string              MonsterIntro;
+    
+} PLYs <read=ReadMonsName>;
+
+
+string ReadMonsName(PLYs &a)
+{
+    return a.MonsterName;
+}
+typedef struct
+{
+    string              weapon_attribute;
+	USHORT   bytelen;	 
+	USHORT   chr_id;	
+	ubyte   ATKRES_Slash;	 
+	ubyte   ATKRES_Assault;	 
+	ubyte   ATKRES_Shoot;	
+	ubyte   ATKRES_Strong;	 
+	ubyte   ATKRES_un1;	
+	float   ATKRES_Slash_pra;	  
+	float	ATKRES_Assault_pra;	
+	float	ATKRES_Shoot_pra;	
+	USHORT   chrid_un3;	
+	float	ATKRES_un4;	
+	float	ATKRES_un5;	
+	float   chrid_un6;	
+}Weapon_attribute;
+
+
+typedef struct
+{
+    string  Status_revise;
+	USHORT   bytelen;	
+	USHORT   chr_id;	
+ 	USHORT  un1;	 
+	USHORT  un2;	 
+	USHORT  un3;	  
+	USHORT	un4;	
+	USHORT	un5;	
+	USHORT  un6;	
+	USHORT  un7;	
+	USHORT  un8;	 
+	USHORT  un9;	
+}Status_revise;
+
+
+
+typedef struct
+{
+    string  Char_revise;
+	USHORT   bytelen;	
+
+    string  Monname;
+ 	USHORT  un1;	 
+	USHORT  un2;	
+	USHORT  un3;	  
+	USHORT	un4;	
+	USHORT	un5;	
+	USHORT  un6;	 
+	USHORT  un7;
+	USHORT  un8;	 
+	USHORT  un9;	
+}Char_revise;
+
+typedef struct
+{
+    string              weapon_attribute;
+	USHORT   bytelen;	
+	USHORT   chr_id;	
+	ubyte   un1;	 
+	float   un2;	 
+	float   un3;
+	UBYTE  un4;
+	UBYTE  un5;
+	UBYTE  un6;
+	UBYTE  un7;
+	float	un8;	
+	float	un9;	
+	UBYTE  un10;
+	UBYTE  un11;
+	float	un12;	
+	float	un13;	
+	float   un14;	
+	USHORT   un15;	
+}FieldAttackData;
+
+typedef struct
+{
+    string  game_difficulty;
+	SHORT  bytelen;	
+	SHORT  choose;	
+	SHORT  HP_BRK_SPD_pra1;
+           SHORT  GET_DAMAGE_pra2;
+           SHORT  GIVE_DAMAGE_pra3;	
+}Game_difficulty;
+
+
+
+
+ 
+/*
+PLYs   plys_00_Rean;
+PLYs   plys_01_Alisa;
+PLYs   plys_02_Eliot;
+PLYs   plys_03_Laura;
+PLYs   plys_04_Machias;
+PLYs   plys_05_Emma;
+PLYs   plys_06_Jusis;
+PLYs   plys_07_Fie;
+PLYs   plys_08_Gaius;
+PLYs   plys_09_Millium;
+PLYs   plys_OC_Angelica;
+PLYs   plys_0B_Elise;
+PLYs   plys_12_Alfin;
+PLYs   plys_OD_Towa;
+PLYs   plys_16_Altina;
+PLYs   plys_10_Sara;
+PLYs   plys_11_Tovar;
+PLYs   plys_OF_Claire;
+PLYs   plys_OE_Sharon;
+PLYs   plys_14_Lloyd;
+PLYs   plys_15_Rixia;
+PLYs   plys_10_crow;
+PLYs   plys_13_clotilde;
+*/
+
+ushort total;
+long list_num;
+string status;
+long status_num;
+string status_revise;
+long status_revise_num;
+string char_revise;
+long char_revise_num;
+string field_attack_data;
+long field_attack_data_num;
+string game_difficulty;
+long game_difficulty_num;
+string status_lv_revise;
+long status_lv_revise_num;
+string status_factor;
+long status_factor_num;
+
+    for( i = 0; i <status_num; i++ )
+    {
+
+            PLYs   plys;
+       
+   }
+
+Game_difficulty   game_difficulty_easy;
+Game_difficulty   game_difficulty_normal;   
+Game_difficulty   game_difficulty_hard;    
+Game_difficulty   game_difficulty_nightmare; 
+Game_difficulty   game_difficulty_inferno; 
+
+    for( i = 0; i <status_revise_num; i++ )
+    {
+
+            Status_revise   status_revise;
+       
+   }
+
+
+    for( i = 0; i <char_revise_num; i++ )
+    {
+
+            Char_revise   charrevise;
+       
+   }
+
+//FSeek(0x3675);
+
+
+    for( i = 0; i <field_attack_data_num; i++ )
+    {
+        FieldAttackData fieldattack_data;
+    } 
+/*
+Weapon_attribute   plysw_00_Rean;
+Weapon_attribute  plysw_01_Alisa;
+Weapon_attribute   plysw_02_Eliot;
+Weapon_attribute  plysw_03_Laura;
+Weapon_attribute  plysw_04_Machias;
+Weapon_attribute   plysw_05_Emma;
+Weapon_attribute   plysw_06_Jusis;
+Weapon_attribute   plysw_07_Fie;
+Weapon_attribute  plysw_08_Gaius;
+Weapon_attribute  plysw_09_Millium;
+Weapon_attribute   plysw_0B_Elise;
+Weapon_attribute  plysw_OC_Angelica;
+Weapon_attribute  plysw_OD_Towa;
+Weapon_attribute   plysw_OE_Sharon;
+Weapon_attribute   plysw_OF_Claire;
+Weapon_attribute  plysw_10_Sara;
+Weapon_attribute   plysw_11_Tovar;
+Weapon_attribute   plysw_12_Alfin;
+Weapon_attribute  plysw_14_Lloyd;
+Weapon_attribute plysw_15_Rixia;
+Weapon_attribute  plysw_16_altina;
+Weapon_attribute  plysw_17_crow;
+Weapon_attribute  plysw_13_clotilde;
+Weapon_attribute  plysw_10_notcrow;
+Weapon_attribute  plysw_16_notAltina;
+//00 Rean
+//01 Alisa
+//02 Eliot
+//03 Laura
+//04 Machias
+//05 Jusis
+//06 Emma
+//07 Fie
+//08 Gaius
+//09 Sara
+//0a Crow
+//0b Angelica
+//0c Millium

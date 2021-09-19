@@ -1,0 +1,205 @@
+//--------------------------------------
+//--- 010 Editor v3.2 Binary Template
+//
+// File:闪之轨迹4 t_magic._dt Template
+// Author:sealist
+// Revision:2014-10-01
+// Purpose:查看、修改魔法战技效果
+// Readme:修改魔法名称和说明需要保持字节数不变
+//        任何改变文件大小的操作均不可以进行
+//--------------------------------------
+#include "ed8_4_enums.bt"
+
+local int64 pos;
+local int64 pos1;
+local ushort effectcc;
+local int i = 0;
+local int j = 0;
+
+typedef struct
+{
+    string  condition;
+
+    USHORT	bytelen;
+    USHORT	Skillindex; //敌人AI用
+
+
+     // 半径
+
+    EffectType	Effect3;     //效果2
+
+    UINT	Effect3pra1;
+    UINT	Effect3pra2;
+    UINT	Effect3pra3;
+    EffectType	Effect4;     //效果2
+    UINT	Effect4pra1;
+    UINT	Effect4pra2;
+    UINT	Effect4pra3; 
+    EffectType	Effect5;     //效果2
+    UINT	Effect5pra1;
+    UINT	Effect5pra2;
+    UINT	Effect5pra3; 
+    EffectType	Effect6;    //效果1?
+    UINT	Effect6pra1;
+    UINT	Effect6pra2; 
+    UINT	Effect6pra3; 
+    EffectType	Effect7;     //效果2
+    UINT	Effect7pra1;
+    UINT	Effect7pra2;
+    UINT	Effect7pra3;
+    ushort	Usetime;    //效果1? 
+} Magicbo <read=ReadCONDITION_ADD_ID>;
+
+
+typedef struct
+{
+    string  condition;
+
+    USHORT	bytelen;
+    USHORT	btcalcindex; //敌人AI用
+    ushort	Effect1;    //效果1? 
+    ushort	Effect1pra1;    //效果1? 
+    ushort	Effect1pra2;    //效果1? 
+     // 半径
+
+
+} Btcalc <read=Readbtcalc_ADD_ID>;
+
+typedef struct
+{
+    string  EntryType;
+    USHORT	bytelen;
+    USHORT	Id;
+    UBYTE	ExclusiveCharacter;
+    UBYTE	unknown;
+    string  Flags; 
+    MagicType	Type; //施加类型 
+    ActionIntentType	Intention;
+    ElementType	Element;                // 属性 0无 1地 2水 3火 4风 5时 6空 7幻?
+    UBYTE	JunaAltAttackMode;  //?形状
+	TargetSelectionType	ShapeScope;
+	float	RNG;     
+
+    UBYTE   ScopeRadius;
+    float   un1;
+    float   un2;
+    float   un3;
+    USHORT	Effect1;    //效果1?
+    UINT	Effect1pra1;
+    UINT	Effect1pra2; 
+    UINT	Effect1pra3; 
+    USHORT	Effect2;     //效果2
+    UINT	Effect2pra1;
+    UINT	Effect2pra2;
+    UINT	Effect2pra3;
+    USHORT	Effect3;     //效果2
+    UINT	Effect3pra1;
+    UINT	Effect3pra2;
+    UINT	Effect3pra3;
+    USHORT	Effect4;     //效果2
+    UINT	Effect4pra1;
+    UINT	Effect4pra2;
+    UINT	Effect4pra3;
+    USHORT	Effect5;     //效果2
+    UINT	Effect5pra1;
+    UINT	Effect5pra2;
+    UINT	Effect5pra3;
+    UBYTE   ChargeAT;
+	UBYTE	STCoolDownAT; //冷却时间？
+    BYTE unknown2;
+	USHORT	COST;       //消耗EP
+	UBYTE	UnBalanceRate;
+	USHORT	BenRate;      //崩率,255无效
+    UBYTE	needLV;   
+    UBYTE	MenuSortOrder;
+   
+	USHORT	MagicID;
+    
+
+    string  Animation;
+    string  Name;
+    string  Description;
+    
+} MAGIC<read=ReadMagicName>;
+
+
+
+string ReadMagicName(MAGIC &a)
+{
+	string s;
+	SPrintf(s,"        <ID=%d>",a.Id);
+	return  a.Name+s;
+
+}
+
+string ReadCONDITION_ADD_ID(Magicbo &a)
+{
+	string s;
+	SPrintf(s,"        <SkillindexID=%d>",a.Skillindex);
+
+    return s;
+}
+
+string Readbtcalc_ADD_ID(Btcalc &a)
+{
+	string s;
+	SPrintf(s,"        <BtcalcID=%d>    %d",a.btcalcindex,a.Effect1pra1);
+
+    return s;
+}
+
+    local int   TOTAL = 100;
+    local long   bb;
+
+
+
+ushort totalnum;
+ulong  listnum;
+string magic;
+ulong  magicnum;
+string magicbo;
+ulong magicbonum;
+string btcalc;
+ulong btcalcnum;
+string replace_ex_craft;
+uint replace_num;
+//FSeek(FindFirst("magicbo")+14);	
+
+bb=FindFirst("magicbo");
+//FSeek(bb);
+   
+    for( i = 0; i < magicnum; i++ )
+    {
+
+            MAGIC   magic;
+       
+   }
+
+
+  for( i = 0; i < magicbonum; i++ )
+  {
+
+         Magicbo  Magicbolist;
+       
+}
+
+  for( i = 0; i < btcalcnum; i++ )
+  {
+
+         Btcalc  Btcalclist;
+       
+}
+    //for( i = 0; i < TOTAL-1; i++ )
+    //{
+     //   if( addr[i+1] - addr[i] < 28 )
+     //       MAGIC   magic <hidden=true>;    // 隐藏空魔法
+      //  else
+      //  {
+      //      FSeek(addr[i]); // 跳转
+      //      MAGIC   magic;
+     //   }
+   // }
+
+ //   i = 0;  // 解决最后一个
+ ////   FSeek(addr[TOTAL-1]);
+  //  MAGIC   magic;    

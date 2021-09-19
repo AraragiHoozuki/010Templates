@@ -1,0 +1,101 @@
+//--------------------------------------
+//--- 010 Editor v3.2 Binary Template
+//
+// File: hajimari_t_item.tbl
+//        
+//--------------------------------------
+#include "ed8_4_enums.bt"
+
+typedef struct
+{
+    string  ITEMMagicIntroTT;
+    USHORT	bytelen;
+    USHORT	ITEMID<format=hex,fgcolor=cBlack, bgcolor=0x00FFFF>;
+    USHORT  equiplimit;
+    string  EBDNIntro; 
+    BYTE	un1[4];
+    BYTE	Type; 
+    USHORT	icon;
+    BYTE	nature;
+    BYTE    un2[5];
+    TargetSelectionType    RangeType;
+	float	Rng_or_Level;
+	UBYTE	ScopeRadius;        // °ë¾¶
+	EffectType	Effect1;
+    ULONG	Effect1pra1;
+     ULONG	Effect1pra2; 
+     ULONG	Effect1pra3; 
+   	EffectType  Effect2;     //Ð§¹û2
+    ULONG	Effect2pra1;
+	ULONG	Effect2pra2;
+     ULONG	Effect2pra3;
+	EffectType	Effect3;
+    ULONG	Effect3pra1;
+     ULONG	Effect3pra2; 
+     ULONG	Effect3pra3; 
+	EffectType	Effect4;
+    ULONG	Effect4pra1;
+     ULONG	Effect4pra2; 
+     ULONG	Effect4pra3;  
+	EffectType	Effect5;
+    ULONG	Effect5pra1;
+     ULONG	Effect5pra2; 
+     ULONG	Effect5pra3; 
+	long	STR;
+	long	DEF;
+	long	ATS;
+	long	ADF;
+	long	DEX;
+	long	AGL; 
+	long	SPD;
+    long	MOV;
+	long	HP; 
+	long	EP;
+    uint    Price; 
+	USHORT	MaxAmount;
+    USHORT	Limit;
+	USHORT	DLCID;
+    SHORT   un3;
+    string  ITEMName;
+    string  ITEMIntro;
+    if (ITEMMagicIntroTT != "item")
+    {
+        SHORT	un3<hidden=true>;
+	    SHORT	un4<hidden=true>;
+	    SHORT	un5<hidden=true>;
+	    SHORT	un6<hidden=true>;
+        SHORT	un7<hidden=true>;
+    }
+    
+    if(ITEMMagicIntroTT=="item_q")
+    {
+	    USHORT	addmagic1;
+        USHORT	addmagic2;
+        USHORT	addmagic3; 
+        USHORT	addmagic4;
+	    USHORT	addmagic5;
+	    USHORT	addmagic6;
+    }
+   
+} ITEM <read=ReadITEMName>;
+
+
+string ReadITEMName(ITEM &a)
+{
+	string s;
+	SPrintf(s,"\t<ITEMID=%d>\t",a.ITEMID);
+	return  a.ITEMName+s+a.ITEMIntro;
+}
+
+LittleEndian();
+ushort totalnum;
+ulong  listnum;
+string item;
+ulong  itemnum;
+string item_q;
+ulong  item_qnum;
+string item_e;
+ulong  item_enum;
+    local int i;
+    for( i = 0; i < totalnum; i++ )
+    {ITEM   item;}
