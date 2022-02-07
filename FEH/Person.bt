@@ -19,9 +19,13 @@ LittleEndian();
 
 typedef struct
 {
-    STATS bonus;
+    CryptStr duo_skill_id;;
+    STATS bonus_effect;
+    XORED8 kind(0x21); // 1 -> legendary/mythic, 2 -> duo
     XORED8 element(0x05);
-    FSkip(7);
+    XORED8 bst(0x0F);
+    XORED8 pair_up(0x80);
+    FSkip(4);
 }LegendaryInfo;
 
 typedef struct
@@ -45,20 +49,24 @@ typedef struct
     CryptStr name_romance;
     CryptStr face;
     CryptStr face2;
-    int64 legendary_bonus; // Not completed yet
+    FSkip(16); // Not completed yet
     XORED64 timestamp(0xBDc1E742E9B6489B); // Not important, so not decoded;
-    XORED32 internal_id(0x5F6E4E18);
+    XORED32 id_num(0x5F6E4E18);
+    XORED32 version_num(0x2E193A3C);
     XORED32 sort_value(0x2A80349B);
+    XORED32 origins(0xE664B808)<format=binary>;
     byte weapon_type<read=WeaponTypeRead>;
     byte tome_class<read=TomeClassRead>;//Purpose unkown
     byte move<read=MoveRead>;
-    byte origin<hidden=true>; //0x43
-    XORED8 summonable(0xA1);
+    XORED8 series(0x43);
+    XORED8 regular(0xA1);
     XORED8 permanent(0xC7);
     XORED8 base_vector_id(0x3D);
     XORED8 is_refresher(0xFF);
-    byte unkown<hidden=true>;
-    FSkip(7);
+    XORED8 dragonflowers(0xE4);
+    FSkip(4);
+    byte unkown;
+    FSkip(2);
     STATS base_stats;
     STATS grow;
     Skills skills;
@@ -72,8 +80,8 @@ string PersonRead(Person &p)
 string WeaponTypeRead(byte b)
 {
     enum {Sword, Lance, Axr, RedBow, BlueBow, GreenBow, ColorlessBow, RedDagger, BlueDagger,
-    GreedDagger, Dagger, RedTome, BlueTome, GreenTome, Staff, RedBreath, BlueBreath, GreenBreath,
-    ColorlessBreath, RedBeast, BlueBeast, GreenBeast, ColorlessBeast} wps;
+        GreedDagger, ColorlessDagger, RedTome, BlueTome, GreenTome, ColorlessTome, Staff, RedBreath, BlueBreath, GreenBreath,
+        ColorlessBreath, RedBeast, BlueBeast, GreenBeast, ColorlessBeast} wps;
     wps = b^0x06;
     return EnumToString(wps);
 }
