@@ -1,0 +1,134 @@
+//------------------------------------------------
+//--- 010 Editor v10.0 Binary Template
+//
+//      File: 
+//   Authors: Georges Zebit
+//   Version: 
+//   Purpose: 
+//  Category: 
+// File Mask: 
+//  ID Bytes: 
+//   History: 
+//------------------------------------------------
+#include "Enums.h";
+
+LittleEndian();
+
+typedef struct {
+    int Length;
+    wchar_t Content[Length/2];
+} LString<read=(Content)>;
+
+typedef struct {
+	int ContentsMounted : 1;
+	int FinishedSetupMap : 1;
+	int __Casual : 1;
+	int __Phoenix : 1;
+	int EncountMap : 1;
+	int ContinuedMap : 1;
+	int FixedGrow : 1;
+	int Completed : 1;
+	int TemporarySaved : 1;
+	int TemporaryLoaded : 1;
+	int NetLoginOnce : 1;
+	int RestartMap : 1;
+	int RecollectionMap : 1;
+	int IgnoreKizuna : 1;
+	int EvilCompleted : 1;
+	int Empty : 1;
+} UserDataStatus;
+
+typedef struct {
+    byte Version;
+    int Hash;
+} Chapter;
+
+typedef struct {
+    byte Version;
+    byte HasGenderQ;
+    if (HasGenderQ != 0)
+        LString HeroName;
+        Gender HeroGender;
+        Language Lang;
+        byte BirthMonth;
+        byte BirthDay;
+} UnitEdit;
+
+typedef struct {
+    int Version;
+    int GameVersion;
+    UserDataStatus Status;
+    Chapter CurrentChapter;
+    Chapter NextChapter;
+    Sequences Sequence<comment="HeroPlace?">;
+    Difficulty GameDifficulty;
+    Difficulty EvilDifficulty;
+    GameMode Mode;
+    ushort Turn;
+    int ContentsIndex;
+    uint64 Identifier;
+    float PlayTime<comment="Seconds">;
+    byte ChallengeRoute<comment="連戦_ルート">;
+    byte ChallengeStage<name="">;
+    UnitEdit HeroInfo;
+    int CRC32CheckSum<format=hex>;
+} SaveDataHeader;
+
+typedef struct
+{
+    LString Key;
+    byte StringQ;
+    if (StringQ == 1)
+        LString Value;
+    else
+    {
+        int Value;
+    }
+} GameVariable<read=(Key.Content)>;
+
+
+//========================================================================
+
+SaveDataHeader Header<size=128>;
+struct {
+    int Unknown;
+    int UserData;
+    int UnitPool;
+    int Gods;
+} Tags<size=132>;
+
+FSeek(Tags.UserData);
+int TagHash;
+int unknown;
+int Version;
+FSkip(106);
+int ContentIndex;
+struct {
+    int Count;
+    while(1)
+    {
+        GameVariable Var;
+        if (Var.Key.Content == L"メニューカーソル[0]")
+            break;
+    }
+} Variables;
+int Gold;
+int Progress;
+int TrainingCount;
+int ArenaCount;
+int UnitInfoMode;
+LString GmapSpot;
+int PieceOfBond;
+int TotalPieceOfBond;
+LString MascotName;
+uint64 Identifier;
+struct {
+    byte Version;
+    struct {
+        int v0;
+        uint v1;
+        uint v2;
+        uint v3;
+        uint v4;
+    } RandomSeed[7];
+} Random;
