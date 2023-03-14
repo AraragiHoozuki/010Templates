@@ -65,3 +65,28 @@ enum GameSaveDataTypes
 	Manual = 6
 	//Num = 7,
 };
+
+enum GmapSpotEncountPersonType
+{
+	//None = 0,
+	Morph = 1,
+	Filene = 2,
+	Brodia = 3,
+	Solum = 4,
+	Ircion = 5,
+	Troublemaker = 6,
+};
+
+enum EncountUnitDataRareType
+{
+	//None = 0,
+	Exp = 1,
+	Gold = 2
+};
+
+enum<byte> GmapMode
+{
+	Main = 0,
+	DLC_God = 1,
+	DLC_Evil = 2
+};
