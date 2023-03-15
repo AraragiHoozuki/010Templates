@@ -2,18 +2,18 @@
 
 ## Progress
  - [x] GameUserData
- - [ ] God 
- - [ ] GodBond 
+ - [ ] God
+ - [ ] GodBond? 
  - [ ] Unit 
- - [ ] Transporter
+ - [ ] Transporter?
  - [ ] UnitReliance 
- - [ ] Map 
+ - [ ] Map
  - [ ] Hub 
  - [ ] Gmap 
  - [ ] Ring 
- - [ ] Time 
- - [ ] Restart 
- - [ ] Profile 
- - [ ] ProfileList
- - [ ] DebugParam
- - [ ] Crc32 
+ - [ ] Time? 
+ - [ ] Restart? 
+ - [ ] Profile?
+ - [ ] ProfileList?
+ - [ ] DebugParam?
+ - [x] Crc32 
