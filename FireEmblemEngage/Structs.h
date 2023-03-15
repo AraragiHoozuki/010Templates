@@ -1,16 +1,16 @@
+//------------------------------------------------
+//--- 010 Editor v10.0 Binary Template
+//
+//   File: Enums.h
+//   Author: Georges Zebit(https://github.com/AraragiHoozuki)
+//   History: 
+//------------------------------------------------
+
 typedef struct {
     int Length;
 	if (Length > 0)
     	wchar_t Content[Length/2];
 } LString<read=(Length>0?Content:"NULL")>;
-
-// string ReadLString(LString &ls) {
-// 	if (ls.Length > 0)
-// 		return ls.Content;
-// 	else {
-// 		return "NULL";
-// 	}
-// };
 
 typedef struct
 {
@@ -18,7 +18,7 @@ typedef struct
 	int Version;
 	int _Separator;
 	byte _Padding[24];
-} SerializeInfo;
+} BlockInfo;
 
 
 
@@ -105,7 +105,12 @@ typedef struct {
 } SaveDataHeader;
 
 typedef struct {
-    SerializeInfo Info;
+    BlockInfo Info;
+    byte Buffer[Info.Size - 36];
+} BufferBlock;
+
+typedef struct {
+    BlockInfo Info;
     UserDataStatus Status;
     Sequences Sequence;
     GameMode Mode;
@@ -114,7 +119,7 @@ typedef struct {
     Chapter UserDataChapter;
     int ContentsIndex;
     struct {
-        SerializeInfo Info;
+        BlockInfo Info;
         int Count;
         GameVariable Var[Count]<optimize=false>;
     } GameVariables;
@@ -133,20 +138,20 @@ typedef struct {
         RandomSeed Seeds[6];
     } Random;
     struct {
-        SerializeInfo Info;
+        BlockInfo Info;
         LString FieldBgm1;
         LString FieldBgm2;
         LString FieldBgm3;
         LString WarSituationStateName;
     } Sound;
     struct {
-        SerializeInfo Info;
+        BlockInfo Info;
         float GmapCameraDistance;
         int GmapEcountsCount;
         struct {
             LString ModGmapSpot;
             struct {
-                SerializeInfo Info;
+                BlockInfo Info;
                 LString Ejid;
                 byte Empty;
                 GmapSpotEncountPersonType Type;
@@ -169,7 +174,7 @@ typedef struct {
         LString NewSpotEvil;
     } UserGmapData;
     struct {
-        SerializeInfo Info;
+        BlockInfo Info;
         byte Count;
         struct {
             LString Cid;
@@ -181,12 +186,12 @@ typedef struct {
         } ChapterRecords[Count]<read=(Cid.Content),optimize=false>;
     } ChapterRecordData;
     struct {
-        SerializeInfo Info;
+        BlockInfo Info;
         byte Stream[Info.Size - 44];
         time64_t SaveTime;
     } MapEditData;
     struct {
-        SerializeInfo Info;
+        BlockInfo Info;
         FSkip(Info.Size - 36);
     } MapHistoryData;
     struct {
@@ -199,12 +204,12 @@ typedef struct {
         } EnteredBattle[Count]<optimize=false>;
     } RelayUserData;
     struct {
-        SerializeInfo Info;
+        BlockInfo Info;
         short Rate;
         uint64 DataId;
     } VersusUserData;
     struct {
-        SerializeInfo Info;
+        BlockInfo Info;
         Vector3 LastPosition;
         float LastDirectionY;
         int CameraSpeed;
@@ -213,7 +218,23 @@ typedef struct {
         int MapMode;
     } UserHubData;
     struct {
-        SerializeInfo Info;
+        BlockInfo Info;
         FSkip(Info.Size - 36);
     } TurnSaveData;
 } GameUserData;
+
+typedef struct(char name[]) {
+    int Offset;
+    local int pos = FTell();
+    FSeek(Offset);
+    int Hash<format=hex>;
+    if (name == "User")
+        GameUserData User;
+    else if (name == "CheckSum")
+        int CRC32CheckSum<format=hex>;
+    else
+    {
+        BufferBlock Buffer_WIP;
+    }
+    FSeek(pos);
+} Tag;

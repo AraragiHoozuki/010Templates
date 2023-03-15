@@ -1,13 +1,8 @@
 //------------------------------------------------
 //--- 010 Editor v10.0 Binary Template
 //
-//      File: 
-//   Authors: Georges Zebit
-//   Version: 
-//   Purpose: 
-//  Category: 
-// File Mask: 
-//  ID Bytes: 
+//   File: FeEngageSave.bt
+//   Author: Georges Zebit(https://github.com/AraragiHoozuki)
 //   History: 
 //------------------------------------------------
 #include "Enums.h";
@@ -19,24 +14,17 @@ LittleEndian();
 //========================================================================
 
 SaveDataHeader Header<size=128>;
-struct {
-    int _Unknown;
-    int User;
-    int God;
-    int GodBond;
-} Tags<size=132>;
-
-FSeek(Tags.User); int UserTagHash;
-GameUserData User;
-
-FSeek(Tags.God); int GodTagHash;
-struct {
-    SerializeInfo Info;
-    FSkip(Info.Size - 36);
-} GodData;
-
-FSeek(Tags.GodBond); int GodBondTagHash;
-struct {
-    SerializeInfo Info;
-    FSkip(Info.Size - 36);
-} TBD;
+int _Unknown;
+Tag UserData("User");
+Tag Block1("WIP");
+Tag Block2("WIP");
+Tag Block3("WIP");
+Tag Block4("WIP");
+Tag Block5("WIP");
+Tag Block6("WIP");
+Tag Block7("WIP");
+Tag Block8("WIP");
+Tag Block9("WIP");
+Tag Block10("WIP");
+Tag Block11("WIP");
+Tag CheckSum("CheckSum");

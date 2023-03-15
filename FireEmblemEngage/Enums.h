@@ -1,5 +1,10 @@
-
-//UserData
+//------------------------------------------------
+//--- 010 Editor v10.0 Binary Template
+//
+//   File: Enums.h
+//   Author: Georges Zebit(https://github.com/AraragiHoozuki)
+//   History: 
+//------------------------------------------------
 enum<byte> Difficulty 
 {
     Normal,
