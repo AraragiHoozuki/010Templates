@@ -1,8 +1,9 @@
 //------------------------------------------------
-//--- 010 Editor v10.0 Binary Template
+//--- 010 Editor Binary Template
 //
-//   File: Enums.h
+//   File: Struct.h
 //   Author: Georges Zebit(https://github.com/AraragiHoozuki)
+//   Purpose: Analyze Fe Engage Save Data
 //   History: 
 //------------------------------------------------
 
