@@ -1,0 +1,55 @@
+//------------------------------------------------
+//--- 010 Editor v13.0.1 Binary Template
+//
+//      File: 
+//   Authors: 
+//   Version: 
+//   Purpose: 
+//  Category: 
+// File Mask: 
+//  ID Bytes: 
+//   History: 
+//------------------------------------------------
+typedef struct
+{
+    char name[36];
+    int size;
+    byte unknown[8];
+} TextureInfo;
+
+typedef struct
+{
+    char magic[4]; //.tex
+    int format;
+    int unk;
+    int width;
+    int height;
+    int unk;
+    int unk;
+    int head_size;
+    int data_size;
+    FSeek(startof(this)+head_size);
+    byte data[data_size]<optimize=false>;
+} nvt;
+
+typedef struct
+{
+    char magic[4]; //FTX0
+    int data_size;
+    int head_size;
+    FSeek(startof(this)+head_size);
+    nvt texture;
+} Texture<size=(ReadInt(startof(this)+4)+ReadInt(startof(this)+8))>;
+
+
+
+
+char magic[4]; // FTEX
+int DataSize;
+int HeadSize;
+int DataCount;
+FSkip(16);
+TextureInfo infos[DataCount]<optimize=false>;
+
+FSeek(HeadSize);
+Texture tex[DataCount]<optimize=false>;

@@ -1,0 +1,78 @@
+//------------------------------------------------
+//--- 010 Editor v13.0.1 Binary Template
+// C8FA00001A005A00
+//      File: 
+//   Authors: 
+//   Version: 
+//   Purpose: 
+//  Category: 
+// File Mask: 
+//  ID Bytes: 
+//   History: 
+//------------------------------------------------
+#include "UCL_Enums.bt";
+
+typedef struct
+{
+    int slot;
+    int unk1;
+    int unk2;
+    int unk3;
+    int unk4;
+    int unk5;
+    Class class;
+    GrowStyle grow_type1;
+    GrowStyle grow_type2;
+    byte unk;
+    byte color_base;
+    byte color_hair;
+    byte color_main_part;
+    byte color_other_part;
+    byte gender;
+    byte head;
+    byte voice1;
+    byte voice2;
+    int name;
+    int exp;
+    short level;
+    short hp;
+    byte dew_hp;
+    byte dew_phys_atk;
+    byte dew_phys_def;
+    byte dew_mag_atk;
+    byte dew_mag_def;
+    byte dew_accuracy;
+    byte dew_evation;
+    byte dew_crit_rate;
+    byte dew_guard_rate;
+    byte dew_initiative;
+    byte dew_of_illusion;
+} Character<size=0x1d0>;
+
+typedef struct 
+{
+    ItemId id;
+    int order;
+    short quantity;
+    short unk;
+    int is_equiped;
+    int type;
+} Item;
+
+int empty;
+char magic[4];
+int unk1;
+int file_size;
+
+FSeek(0x20);
+int gold;
+int renown;
+
+FSeek(0xA0);
+Item item[4000];
+
+FSeek(0x63984);
+int character_count;
+
+FSeek(0x2AF50);
+Character c[character_count];
