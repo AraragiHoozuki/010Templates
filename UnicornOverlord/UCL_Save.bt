@@ -14,12 +14,8 @@
 
 typedef struct
 {
-    int slot;
-    int unk1;
-    int unk2;
-    int unk3;
-    int unk4;
-    int unk5;
+    int index;
+    int unk[9];
     Class class;
     GrowStyle grow_type1;
     GrowStyle grow_type2;
@@ -52,10 +48,12 @@ typedef struct
 typedef struct 
 {
     ItemId id;
-    int order;
+    int index;
     short quantity;
-    short unk;
-    int is_equiped;
+    byte unk;
+    byte equip1;
+    byte equip2;
+    FSkip(3);
     int type;
 } Item;
 
@@ -74,5 +72,5 @@ Item item[4000];
 FSeek(0x63984);
 int character_count;
 
-FSeek(0x2AF50);
+FSeek(0x2AF40);
 Character c[character_count];
